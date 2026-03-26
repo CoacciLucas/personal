@@ -8,7 +8,7 @@ This document outlines the technical architecture for building Personal as **two
 
 ## Architecture Decision: Two Native Apps
 
-Based on the cross-platform analysis (see [`plans/cross-platform-analysis.md`](plans/cross-platform-analysis.md)), I recommend building **two separate native applications**:
+Based on the cross-platform analysis, I recommend building **two separate native applications**:
 
 ### Windows App: C# + WinUI 3
 - **Technology**: C# with WinUI 3 (Windows App SDK)
@@ -31,6 +31,75 @@ Based on the cross-platform analysis (see [`plans/cross-platform-analysis.md`](p
 3. **Clear expectations about macOS limitations** - Apple's ScreenCaptureKit limitation is documented
 4. **Native performance** - Best audio capture and processing on each platform
 5. **Modern Windows UI** - WinUI 3 provides Fluent Design System and latest Windows UX patterns
+
+---
+
+## Speech-to-Text Configuration
+
+### Overview
+
+The application supports multiple speech-to-text backends with a configuration menu that allows users to select their preferred transcription provider. **Important: GLM-4 does NOT provide speech-to-text capabilities** - it is a text-based LLM only.
+
+### Default Configuration (Free)
+
+The application comes pre-configured with **Whisper Local (whisper.cpp)** as the default free option:
+
+| Provider | Cost | Offline | Languages | Latency | Recommended |
+|----------|------|---------|-----------|---------|-------------|
+| **Whisper Local (whisper.cpp)** | Free | Yes | PT/EN | ~300-500ms | **Default** |
+| Vosk | Free | Yes | PT/EN | ~200-400ms | Alternative |
+| Azure Speech Services | 5h/month free | No | 100+ | ~300ms | Cloud option |
+| OpenAI Whisper API | Paid | No | 99 | ~2-5s | Premium option |
+
+### Speech-to-Text Providers
+
+#### 1. Whisper Local (whisper.cpp) - Recommended Default
+
+**Pros:**
+- Completely free
+- Works offline
+- Good Portuguese and English support
+- Low latency for real-time use
+
+**Cons:**
+- Requires downloading model files (~75MB-1.5GB depending on model size)
+- Uses CPU/GPU resources
+
+#### 2. Vosk - Free Alternative
+
+**Pros:**
+- Free and offline
+- Lightweight models available
+- Good for Portuguese
+
+**Cons:**
+- Less accurate than Whisper
+- Smaller language support
+
+#### 3. Azure Speech Services - Cloud Option
+
+**Free Tier:** 5 hours/month
+
+**Pros:**
+- Excellent accuracy
+- Built-in speaker diarization
+- Real-time streaming
+
+**Cons:**
+- Requires internet
+- Limited free tier (5h/month)
+- Need Azure subscription
+
+#### 4. OpenAI Whisper API - Premium Option
+
+**Pros:**
+- Best accuracy available
+- Supports many languages
+
+**Cons:**
+- Paid only (no free tier)
+- Higher latency (~2-5s)
+- Requires internet
 
 ---
 
@@ -154,7 +223,7 @@ public class GlobalHotkeyManager
 {
     [DllImport("user32.dll")]
     private static extern short GetAsyncKeyState(int vKey);
-    
+
     public void RegisterHotkey(ModifierKeys modifiers, Key key, Action callback)
     {
         // Implementation using SetWindowsHookEx
@@ -215,7 +284,7 @@ import SwiftUI
 @main
 struct PersonalApp: App {
     init() {
-        // Hide from Dock and App Switcher (Command+Tab)
+        // Hide from dock and App Switcher (Command+Tab)
         NSApp.setActivationPolicy(.accessory)
     }
 
@@ -246,7 +315,7 @@ This prevents the app icon from "flashing" in the Dock during startup.
 
 **Important Considerations:**
 - This API works on macOS 10.15+ (Catalina)
-- **Reliability**: ✅ **Works with most screen sharing apps** (Zoom, Teams, Meet, Discord)
+- **Reliability**: Works with most screen sharing apps (Zoom, Teams, Meet, Discord)
 - Must be applied to ALL windows including popups, dialogs, and tooltips
 - Test thoroughly with all target platforms
 
@@ -263,16 +332,16 @@ import AVFoundation
 class AudioCaptureManager: ObservableObject {
     private var audioEngine: AVAudioEngine?
     private var inputNode: AVAudioInputNode?
-    
+
     func startCapture() {
         audioEngine = AVAudioEngine()
         inputNode = audioEngine?.inputNode
-        
+
         // Install tap on audio node
         inputNode?.installTap(onBus: 0, bufferSize: 1024, format: nil) { buffer, time in
             // Process audio buffer
         }
-        
+
         try? audioEngine?.start()
     }
 }
@@ -299,7 +368,7 @@ import HotKey
 
 class HotkeyManager {
     private var hotKeys: [HotKey] = []
-    
+
     func registerHotkeys() {
         // CMD+D - Toggle transcription
         let hotkeyD = HotKey(keyEquivalent: [.command, .d], modifiers: .command)
@@ -309,6 +378,43 @@ class HotkeyManager {
     }
 }
 ```
+
+---
+
+## macOS Limitation - Critical Finding
+
+From the official Electron documentation for `setContentProtection()`:
+
+> **macOS limitation**: "Unfortunately, due to an intentional change in macOS, newer Mac applications that use `ScreenCaptureKit` will capture your window despite `win.setContentProtection(true)`."
+
+This means:
+- **Zoom app on macOS**: Uses ScreenCaptureKit → **may capture your window**
+- **Google Meet in Chrome on macOS**: Uses ScreenCaptureKit → **may capture your window**
+- **Teams app on macOS**: Uses ScreenCaptureKit → **may capture your window**
+
+**This is not a framework limitation - it is an Apple design decision.**
+
+### Potential macOS Solutions
+
+| Approach | Reliability | Complexity | Best For |
+|--------|-------------|------------|-------|
+| NSWindowSharingNone | Medium | Simple | General |
+| Secondary Window | Medium | Medium | Specific cases |
+| Secure Text Field | High | Simple | Text only |
+| Special window level | Low-Medium | Advanced | Advanced |
+| Metal/OpenGL | Experimental | High | Advanced |
+
+### My Honest Assessment
+
+For macOS, the limitation is a fundamental issue that cannot be bypassed. However, there are some approaches that might help:
+
+1. **Accept the limitation** - The macOS version will have the same limitation as the original Personal has. Add a clear disclaimer in the app about this
+
+2. **Implement fallback mechanism** - Add a **quick-hide hotkey** (Ctrl+H) for when the user needs to hide the window quickly during screen sharing on macOS
+
+3. **Test thoroughly** - The user should test the app with their specific video conferencing setup on macOS to understand the actual behavior
+
+4. **Document clearly** - Let users know that the feature may not work reliably in some scenarios
 
 ---
 
@@ -329,15 +435,16 @@ class HotkeyManager {
 
 ### Transcription Service
 
-**Recommended: Azure Speech Services**
+**Recommended Options:**
 
-| Feature | Azure Speech | OpenAI Whisper | AssemblyAI |
-|---------|--------------|----------------|------------|
-| Real-time Streaming | ✅ Excellent | ❌ No | ✅ Good |
-| Speaker Diarization | ✅ Built-in | ❌ Requires post-processing | ✅ Built-in |
-| Cost | $$ | $ | $$ |
-| Latency | ~300ms | ~2-5s | ~500ms |
-| Language Support | 100+ | 99 | 100+ |
+| Feature | Whisper Local | Azure Speech | OpenAI Whisper |
+|---------|---------------|--------------|----------------|
+| Real-time Streaming | Good | Excellent | No |
+| Speaker Diarization | Requires post-processing | Built-in | Requires post-processing |
+| Cost | Free | $$ | $ |
+| Latency | ~300-500ms | ~300ms | ~2-5s |
+| Language Support | 99+ | 100+ | 99+ |
+| Offline | Yes | No | No |
 
 ---
 
@@ -401,22 +508,6 @@ Personal.Windows/
 │   ├── note-taker.md
 │   ├── study-assistant.md
 │   └── tech-candidate.md
-```
-
-### Switching Profiles at Runtime
-
-```csharp
-public class ProfileManager
-{
-    private AssistantProfile _currentProfile;
-    
-    public void SwitchProfile(string profileId)
-    {
-        _currentProfile = LoadProfile(profileId);
-        // Update GLM-4 client with new system prompt
-        _glm4Client.SetSystemPrompt(_currentProfile.SystemPrompt);
-    }
-}
 ```
 
 ---
@@ -510,7 +601,8 @@ Personal.macOS/
 - [ ] Audio buffering
 
 ### Phase 3: Transcription (Windows)
-- [ ] Azure Speech SDK integration
+- [ ] Whisper Local integration (default)
+- [ ] Azure Speech SDK integration (optional)
 - [ ] Real-time transcription display
 - [ ] Speaker diarization
 - [ ] Transcription history
@@ -531,7 +623,8 @@ Personal.macOS/
 - [ ] Audio buffering
 
 ### Phase 6: Transcription (macOS)
-- [ ] Azure Speech SDK integration
+- [ ] Whisper Local integration (default)
+- [ ] Azure Speech SDK integration (optional)
 - [ ] Real-time transcription display
 - [ ] Speaker diarization
 - [ ] Transcription history
@@ -560,6 +653,7 @@ Personal.macOS/
 
 <!-- Additional NuGet packages -->
 <PackageReference Include="NAudio" Version="2.2.1" />
+<PackageReference Include="Whisper.net" Version="1.5.0" />
 <PackageReference Include="Microsoft.CognitiveServices.Speech" Version="1.34.0" />
 <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
@@ -583,8 +677,10 @@ dependencies: [
 |---------|---------------|------------------------|
 | GLM-4-Flash | ~50k tokens/day | ~$15-30 |
 | GLM-4V | ~100 images/day | ~$5-10 |
-| Azure Speech | ~2 hours/day | ~$10-20 |
-| **Total** | | **~$30-60/month** |
+| Whisper Local | Unlimited | $0 (free, offline) |
+| Azure Speech (if used) | ~2 hours/day | ~$10-20 |
+| **Total (with Whisper Local)** | | **~$20-40/month** |
+| **Total (with Azure Speech)** | | **~$30-60/month** |
 
 ---
 
@@ -612,16 +708,14 @@ dependencies: [
 4. **Screenshot Storage**: Should screenshots persist between sessions or be session-only?
 5. **macOS System Audio**: Should we require BlackHole/Loopback for system audio capture on macOS?
 
-1. **Language Preference**: Should the AI respond in Portuguese or English by default?
-2. **Transcription Language**: Primary language for transcription - Portuguese or English?
-3. **Azure Region**: Which Azure region is closest to you for Speech Services?
-4. **Screenshot Storage**: Should screenshots persist between sessions or be session-only?
-5. **macOS System Audio**: Should we require BlackHole/Loopback for system audio capture on macOS?
+---
 
+## References
 
-2. **Transcription Language**: Primary language for transcription - Portuguese or English?
-3. **Azure Region**: Which Azure region is closest to you for Speech Services?
-4. **Screenshot Storage**: Should screenshots persist between sessions or be session-only?
-5. **macOS System Audio**: Should we require BlackHole/Loopback for system audio capture on macOS?
-
-
+- [Personal Research Document](personal_research.md) - Original product research
+- [Windows Implementation Plan](windows-implementation-plan.md) - Detailed Windows implementation
+- [GLM-4 API Documentation](https://bigmodel.cn/dev/api/normal-model/glm-4)
+- [GLM-4V Vision API](https://bigmodel.cn/dev/api/multimodal-model/glm-4v)
+- [Azure Speech Services](https://learn.microsoft.com/en-us/azure/ai-services/speech-service/)
+- [Whisper.cpp GitHub](https://github.com/ggerganov/whisper.cpp)
+- [Whisper.net NuGet](https://www.nuget.org/packages/Whisper.net)
