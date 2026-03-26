@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Page
+    x:Class="PersonalWindows.Views.SettingsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:PersonalWindows"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <StackPanel
+        Padding="40"
+        Spacing="20"
+        VerticalAlignment="Center"
+        MaxWidth="500">
+        <TextBlock
+            FontSize="24"
+            Style="{StaticResource MyLabel}"
+            Text="Configurações" />
+        <TextBlock
+            FontSize="14"
+            Text="Insira sua chave da API do GLM (Zhipu AI):"
+            TextWrapping="Wrap" />
+        <PasswordBox
+            x:Name="ApiKeyBox"
+            PlaceholderText="Digite sua API Key"
+            HorizontalAlignment="Stretch" />
+        <StackPanel Orientation="Horizontal" Spacing="10">
+            <Button
+                Click="OnSaveClicked"
+                Content="Salvar"
+                Style="{StaticResource PrimaryAction}" />
+            <Button
+                Click="OnGoToChatClicked"
+                Content="Ir para Chat"
+                Style="{StaticResource Action}" />
+        </StackPanel>
+        <TextBlock
+            x:Name="StatusText"
+            FontSize="12"
+            Foreground="Green" />
+    </StackPanel>
+</Page>

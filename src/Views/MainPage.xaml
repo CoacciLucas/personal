@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Page
+    x:Class="PersonalWindows.Views.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:PersonalWindows"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <Page.Content>
+        <StackPanel
+            HorizontalAlignment="Center"
+            Spacing="25"
+            VerticalAlignment="Center">
+            <TextBlock
+                FontSize="28"
+                HorizontalAlignment="Center"
+                Style="{StaticResource MyLabel}"
+                Text="GLM Chat" />
+            <TextBlock
+                FontSize="16"
+                HorizontalAlignment="Center"
+                Text="Chat com a API GLM da Zhipu AI"
+                Foreground="Gray" />
+            <Button
+                Click="OnStartChatClicked"
+                Content="Iniciar Chat"
+                HorizontalAlignment="Center"
+                Style="{StaticResource PrimaryAction}" />
+        </StackPanel>
+    </Page.Content>
+</Page>
