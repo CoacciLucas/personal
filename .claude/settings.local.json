@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__web-search-prime__web_search_prime",
+      "WebSearch",
+      "mcp__web-reader__webReader",
+      "Bash(dotnet build:*)",
+      "Bash(dotnet restore:*)",
+      "Bash(dotnet clean:*)",
+      "Bash(dotnet msbuild:*)",
+      "Bash(\"C:\\\\Users\\\\Coacci\\\\.nuget\\\\packages\\\\microsoft.windowsappsdk.winui\\\\1.8.260224000\\\\tools\\\\net472\\\\XamlCompiler.exe\" \"obj/Debug/net8.0-windows10.0.19041.0/input.json\" \"obj/Debug/net8.0-windows10.0.19041.0/output.json\" 2>&1)"
+    ]
+  }
+}
