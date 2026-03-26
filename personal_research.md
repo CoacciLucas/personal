@@ -1,10 +1,10 @@
-# Perssua - Research Document
+# Personal - Research Document
 
 ## Overview
 
-**Perssua** is a SaaS (Software as a Service) product developed by **Lucas Montano**, designed to help users improve their persuasion and communication skills in real-time during video calls and presentations.
+**Personal** is a SaaS (Software as a Service) product developed by **Lucas Montano**, designed to help users improve their persuasion and communication skills in real-time during video calls and presentations.
 
-- **Website**: [https://perssua.com](https://perssua.com)
+- **Website**: [https://personal.com](https://personal.com)
 - **Tagline**: "Unleash your persuasion superpower in real-time"
 - **Creator**: Lucas Montano ([@lucas_montano](https://twitter.com/lucas_montano))
 
@@ -17,15 +17,15 @@
 | **Company Name** | Montano Productions B.V. |
 | **Location** | John M. Keynesplein 1, 1066 EP Amsterdam, Netherlands |
 | **KvK Number** | 93885067 |
-| **Support Email** | help@perssua.com |
-| **Legal Email** | legal@perssua.com |
+| **Support Email** | help@personal.com |
+| **Legal Email** | legal@personal.com |
 | **Governing Law** | Netherlands (Disputes resolved in Amsterdam courts) |
 
 ---
 
 ## Product Description
 
-Perssua is a **desktop application** that uses AI to analyze your system audio and screen context to provide real-time insights and suggestions during video calls and presentations.
+Personal is a **desktop application** that uses AI to analyze your system audio and screen context to provide real-time insights and suggestions during video calls and presentations.
 
 ### How It Works
 1. The application connects with AI services (OpenAI and Google Gemini) using your own API key
@@ -97,7 +97,7 @@ From interviews to conferences, elevate your performance.
 
 ## Pricing Model
 
-Perssua offers two types of plans:
+Personal offers two types of plans:
 
 ### Free Plan
 - Limited functionality
@@ -173,9 +173,9 @@ Users agree NOT to:
 
 ## Screen-Sharing Detection Disclaimer
 
-> Perssua is designed to operate discreetly during video calls and screen-sharing sessions. However, due to the evolving nature of detection systems and security software, we cannot guarantee that the application will remain completely invisible in all contexts. 
+> Personal is designed to operate discreetly during video calls and screen-sharing sessions. However, due to the evolving nature of detection systems and security software, we cannot guarantee that the application will remain completely invisible in all contexts. 
 
-By using Perssua, you acknowledge and accept that:
+By using Personal, you acknowledge and accept that:
 - Certain platforms, organizations, or security systems may detect or display the presence of the software
 - The company is not liable for any consequences—including disciplinary, contractual, or reputational—that arise from such detection or visibility
 
@@ -221,8 +221,8 @@ By using Perssua, you acknowledge and accept that:
 
 | Purpose | Contact |
 |---------|---------|
-| **General Support** | help@perssua.com |
-| **Legal Inquiries** | legal@perssua.com |
+| **General Support** | help@personal.com |
+| **Legal Inquiries** | legal@personal.com |
 | **Address** | Montano Productions B.V., John M. Keynesplein 1, 1066 EP Amsterdam |
 
 ---
@@ -238,7 +238,7 @@ By using Perssua, you acknowledge and accept that:
 | Field | Value |
 |-------|-------|
 | **Research Date** | March 2026 |
-| **Source** | https://perssua.com |
+| **Source** | https://personal.com |
 | **Terms Last Updated** | May 12, 2025 |
 | **Privacy Policy Last Updated** | May 12, 2025 |
 
@@ -246,7 +246,7 @@ By using Perssua, you acknowledge and accept that:
 
 ## Summary
 
-Perssua is an innovative AI-powered desktop application created by Lucas Montano that helps professionals improve their communication and persuasion skills during video calls and presentations. It integrates seamlessly with popular video conferencing platforms and provides real-time suggestions, objection handling, and contextual insights using OpenAI and Google Gemini APIs.
+Personal is an innovative AI-powered desktop application created by Lucas Montano that helps professionals improve their communication and persuasion skills during video calls and presentations. It integrates seamlessly with popular video conferencing platforms and provides real-time suggestions, objection handling, and contextual insights using OpenAI and Google Gemini APIs.
 
 The product is particularly useful for sales professionals, entrepreneurs, executives, interviewers, and anyone who regularly conducts presentations or meetings online. It operates discreetly in the background, providing assistance without being visible to other participants.
 

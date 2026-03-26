@@ -1,6 +1,6 @@
 # Configuração de Transcrição (Speech-to-Text)
 
-O Perssua suporta múltiplos backends de transcrição. Aqui está um comparativo:
+O Personal suporta múltiplos backends de transcrição. Aqui está um comparativo:
 
 ## Comparativo de Opções
 
@@ -22,17 +22,17 @@ O Perssua suporta múltiplos backends de transcrição. Aqui está um comparativ
 1. **Baixar whisper.cpp**
    - Releases: https://github.com/ggerganov/whisper.cpp/releases
    - Baixe `whisper-xxx-bin-x64.zip`
-   - Extraia para: `%LOCALAPPDATA%\Perssua\whisper\`
+   - Extraia para: `%LOCALAPPDATA%\Personal\whisper\`
 
 2. **Baixar modelo**
    - Modelos: https://huggingface.co/ggerganov/whisper.cpp/tree/main
    - Recomendado: `ggml-base.bin` (142MB) ou `ggml-small.bin` (466MB)
-   - Coloque em: `%LOCALAPPDATA%\Perssua\whisper\models\`
+   - Coloque em: `%LOCALAPPDATA%\Personal\whisper\models\`
 
 ### Estrutura de Pastas
 
 ```
-%LOCALAPPDATA%\Perssua\whisper\
+%LOCALAPPDATA%\Personal\whisper\
 ├── main.exe              # whisper.cpp executable
 ├── ggml-base.bin         # Model (or ggml-small.bin, etc.)
 └── models\
@@ -99,7 +99,7 @@ O Perssua suporta múltiplos backends de transcrição. Aqui está um comparativ
 1. Baixar modelo: https://alphacephei.com/vosk/models
    - Recomendado: `vosk-model-small-en-us-0.15` (inglês) ou `vosk-model-small-pt-0.3` (português)
 
-2. Extrair para: `%LOCALAPPDATA%\Perssua\vosk\model\`
+2. Extrair para: `%LOCALAPPDATA%\Personal\vosk\model\`
 
 ### Modelos Disponíveis
 

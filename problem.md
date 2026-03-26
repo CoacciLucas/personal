@@ -1,4 +1,4 @@
-# Perssua Clone - Requirements Specification
+# Personal Clone - Requirements Specification
 
 ## Overview
 
@@ -172,7 +172,7 @@ Settings area for API key configuration.
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│ Perssua Assistant - Always Ready                    [_][□][X]│
+│ Personal Assistant - Always Ready                    [_][□][X]│
 ├─────────────────────────────────────────────────────────────┤
 │ ┌─────────────────────────────────────────────────────────┐ │
 │ │ [Settings] [Audio Devices]                    [Minimize]│ │
@@ -294,7 +294,7 @@ These features are not required for initial version but may be added later:
 
 ## References
 
-- [Perssua Research Document](perssua_research.md) - Original product research
+- [Personal Research Document](personal_research.md) - Original product research
 - [Architecture Plan](plans/architecture.md) - Technical implementation details
 - [GLM-4 API Documentation](https://bigmodel.cn/dev/api/normal-model/glm-4)
 - [GLM-4V Vision API](https://bigmodel.cn/dev/api/multimodal-model/glm-4v)

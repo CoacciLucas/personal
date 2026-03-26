@@ -1,8 +1,8 @@
-# Perssua - Cross-Platform Strategy Analysis
+# Personal - Cross-Platform Strategy Analysis
 
 ## Overview
 
-This document analyzes the technical options for building a Perssua clone that works on both Windows and macOS, focusing on the critical requirement of hiding the application window from screen sharing.
+This document analyzes the technical options for building a Personal clone that works on both Windows and macOS, focusing on the critical requirement of hiding the application window from screen sharing.
 
 ---
 
@@ -118,7 +118,7 @@ metalLayer.isOpaque = true
 For macOS, the limitation is a fundamental issue that cannot be bypassed. However, there are some approaches that might help:
 
 ### 1. Accept the limitation
-The macOS version will have the same limitation as the original Perssua has. Add a clear disclaimer in the app about this
+The macOS version will have the same limitation as the original Personal has. Add a clear disclaimer in the app about this
 
 ### 2. Implement fallback mechanism
 Add a **quick-hide hotkey** (Ctrl+H) for when the user needs to hide the window quickly during screen sharing on macOS

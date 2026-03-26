@@ -1,8 +1,8 @@
-# Perssua Clone - Technical Architecture Plan
+# Personal Clone - Technical Architecture Plan
 
 ## Executive Summary
 
-This document outlines the technical architecture for building Perssua as **two native applications** - one for Windows and one for macOS. This approach provides maximum reliability for the critical screen share invisibility feature on both platforms.
+This document outlines the technical architecture for building Personal as **two native applications** - one for Windows and one for macOS. This approach provides maximum reliability for the critical screen share invisibility feature on both platforms.
 
 ---
 
@@ -213,7 +213,7 @@ flowchart TB
 import SwiftUI
 
 @main
-struct PerssuaApp: App {
+struct PersonalApp: App {
     init() {
         // Hide from Dock and App Switcher (Command+Tab)
         NSApp.setActivationPolicy(.accessory)
@@ -253,7 +253,7 @@ This prevents the app icon from "flashing" in the Dock during startup.
 **Known Limitation:**
 - Apps using ScreenCaptureKit (macOS 12.3+) for **screen recording** (OBS, QuickTime) may still capture the window
 - This limitation affects **recording**, not necessarily **live screen sharing** in video conferencing apps
-- The original Perssua product documents this same limitation in their terms of service
+- The original Personal product documents this same limitation in their terms of service
 
 #### 2. Audio Capture System
 
@@ -394,7 +394,7 @@ public class AssistantProfile
 
 Store prompts in a dedicated folder:
 ```
-Perssua.Windows/
+Personal.Windows/
 ├── Prompts/
 │   ├── general-assistant.md
 │   ├── leetcode-assistant.md
@@ -426,7 +426,7 @@ public class ProfileManager
 ### Windows Project
 
 ```
-Perssua.Windows/
+Personal.Windows/
 ├── src/
 │   ├── Core/
 │   │   ├── AudioCaptureService.cs
@@ -454,13 +454,13 @@ Perssua.Windows/
 │       ├── AudioDevice.cs
 │       └── Settings.cs
 ├── packages/
-└── Perssua.Windows.csproj
+└── Personal.Windows.csproj
 ```
 
 ### macOS Project
 
 ```
-Perssua.macOS/
+Personal.macOS/
 ├── Sources/
 │   ├── Core/
 │   │   ├── AudioCaptureService.swift
@@ -487,7 +487,7 @@ Perssua.macOS/
 │       ├── AudioDevice.swift
 │       └── Settings.swift
 ├── Tests/
-└── Perssua.macOS.xcodeproj
+└── Personal.macOS.xcodeproj
 ```
 
 ---
