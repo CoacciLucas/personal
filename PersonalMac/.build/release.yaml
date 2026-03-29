@@ -1,0 +1,66 @@
+client:
+  name: basic
+  file-system: device-agnostic
+tools: {}
+targets:
+  "PackageStructure": ["<PackageStructure>"]
+  "PersonalMac-arm64-apple-macosx26.0-release.exe": ["<PersonalMac-arm64-apple-macosx26.0-release.exe>"]
+  "PersonalMac-arm64-apple-macosx26.0-release.module": ["<PersonalMac-arm64-apple-macosx26.0-release.module>"]
+  "main": ["<PersonalMac-arm64-apple-macosx26.0-release.exe>","<PersonalMac-arm64-apple-macosx26.0-release.module>"]
+  "test": ["<PersonalMac-arm64-apple-macosx26.0-release.exe>","<PersonalMac-arm64-apple-macosx26.0-release.module>"]
+default: "main"
+nodes:
+  "/Users/lucascoacci/dev/personal/PersonalMac/PersonalMac/":
+    is-directory-structure: true
+    content-exclusion-patterns: [".git",".build"]
+commands:
+  "/Users/lucascoacci/dev/personal/PersonalMac/.build/arm64-apple-macosx/release/PersonalMac.build/sources":
+    tool: write-auxiliary-file
+    inputs: ["<sources-file-list>","/Users/lucascoacci/dev/personal/PersonalMac/PersonalMac/Models/ChatMessage.swift","/Users/lucascoacci/dev/personal/PersonalMac/PersonalMac/PersonalMacApp.swift","/Users/lucascoacci/dev/personal/PersonalMac/PersonalMac/Services/GlmService.swift","/Users/lucascoacci/dev/personal/PersonalMac/PersonalMac/Services/SettingsService.swift","/Users/lucascoacci/dev/personal/PersonalMac/PersonalMac/Views/ChatView.swift","/Users/lucascoacci/dev/personal/PersonalMac/PersonalMac/Views/MainView.swift","/Users/lucascoacci/dev/personal/PersonalMac/PersonalMac/Views/SettingsView.swift"]
+    outputs: ["/Users/lucascoacci/dev/personal/PersonalMac/.build/arm64-apple-macosx/release/PersonalMac.build/sources"]
+    description: "Write auxiliary file /Users/lucascoacci/dev/personal/PersonalMac/.build/arm64-apple-macosx/release/PersonalMac.build/sources"
+
+  "/Users/lucascoacci/dev/personal/PersonalMac/.build/arm64-apple-macosx/release/PersonalMac.product/Objects.LinkFileList":
+    tool: write-auxiliary-file
+    inputs: ["<link-file-list>","/Users/lucascoacci/dev/personal/PersonalMac/.build/arm64-apple-macosx/release/PersonalMac.build/ChatMessage.swift.o","/Users/lucascoacci/dev/personal/PersonalMac/.build/arm64-apple-macosx/release/PersonalMac.build/ChatView.swift.o","/Users/lucascoacci/dev/personal/PersonalMac/.build/arm64-apple-macosx/release/PersonalMac.build/GlmService.swift.o","/Users/lucascoacci/dev/personal/PersonalMac/.build/arm64-apple-macosx/release/PersonalMac.build/MainView.swift.o","/Users/lucascoacci/dev/personal/PersonalMac/.build/arm64-apple-macosx/release/PersonalMac.build/PersonalMacApp.swift.o","/Users/lucascoacci/dev/personal/PersonalMac/.build/arm64-apple-macosx/release/PersonalMac.build/SettingsService.swift.o","/Users/lucascoacci/dev/personal/PersonalMac/.build/arm64-apple-macosx/release/PersonalMac.build/SettingsView.swift.o"]
+    outputs: ["/Users/lucascoacci/dev/personal/PersonalMac/.build/arm64-apple-macosx/release/PersonalMac.product/Objects.LinkFileList"]
+    description: "Write auxiliary file /Users/lucascoacci/dev/personal/PersonalMac/.build/arm64-apple-macosx/release/PersonalMac.product/Objects.LinkFileList"
+
+  "/Users/lucascoacci/dev/personal/PersonalMac/.build/arm64-apple-macosx/release/swift-version--1AB21518FC5DEDBE.txt":
+    tool: write-auxiliary-file
+    inputs: ["<swift-get-version>","/Library/Developer/CommandLineTools/usr/bin/swiftc"]
+    outputs: ["/Users/lucascoacci/dev/personal/PersonalMac/.build/arm64-apple-macosx/release/swift-version--1AB21518FC5DEDBE.txt"]
+    always-out-of-date: "true"
+    description: "Write auxiliary file /Users/lucascoacci/dev/personal/PersonalMac/.build/arm64-apple-macosx/release/swift-version--1AB21518FC5DEDBE.txt"
+
+  "<PersonalMac-arm64-apple-macosx26.0-release.exe>":
+    tool: phony
+    inputs: ["/Users/lucascoacci/dev/personal/PersonalMac/.build/arm64-apple-macosx/release/PersonalMac"]
+    outputs: ["<PersonalMac-arm64-apple-macosx26.0-release.exe>"]
+
+  "<PersonalMac-arm64-apple-macosx26.0-release.module>":
+    tool: phony
+    inputs: ["/Users/lucascoacci/dev/personal/PersonalMac/.build/arm64-apple-macosx/release/PersonalMac.build/ChatMessage.swift.o","/Users/lucascoacci/dev/personal/PersonalMac/.build/arm64-apple-macosx/release/PersonalMac.build/PersonalMacApp.swift.o","/Users/lucascoacci/dev/personal/PersonalMac/.build/arm64-apple-macosx/release/PersonalMac.build/GlmService.swift.o","/Users/lucascoacci/dev/personal/PersonalMac/.build/arm64-apple-macosx/release/PersonalMac.build/SettingsService.swift.o","/Users/lucascoacci/dev/personal/PersonalMac/.build/arm64-apple-macosx/release/PersonalMac.build/ChatView.swift.o","/Users/lucascoacci/dev/personal/PersonalMac/.build/arm64-apple-macosx/release/PersonalMac.build/MainView.swift.o","/Users/lucascoacci/dev/personal/PersonalMac/.build/arm64-apple-macosx/release/PersonalMac.build/SettingsView.swift.o","/Users/lucascoacci/dev/personal/PersonalMac/.build/arm64-apple-macosx/release/Modules/PersonalMac.swiftmodule"]
+    outputs: ["<PersonalMac-arm64-apple-macosx26.0-release.module>"]
+
+  "C.PersonalMac-arm64-apple-macosx26.0-release.exe":
+    tool: shell
+    inputs: ["/Users/lucascoacci/dev/personal/PersonalMac/.build/arm64-apple-macosx/release/PersonalMac.build/ChatMessage.swift.o","/Users/lucascoacci/dev/personal/PersonalMac/.build/arm64-apple-macosx/release/PersonalMac.build/ChatView.swift.o","/Users/lucascoacci/dev/personal/PersonalMac/.build/arm64-apple-macosx/release/PersonalMac.build/GlmService.swift.o","/Users/lucascoacci/dev/personal/PersonalMac/.build/arm64-apple-macosx/release/PersonalMac.build/MainView.swift.o","/Users/lucascoacci/dev/personal/PersonalMac/.build/arm64-apple-macosx/release/PersonalMac.build/PersonalMacApp.swift.o","/Users/lucascoacci/dev/personal/PersonalMac/.build/arm64-apple-macosx/release/PersonalMac.build/SettingsService.swift.o","/Users/lucascoacci/dev/personal/PersonalMac/.build/arm64-apple-macosx/release/PersonalMac.build/SettingsView.swift.o","/Users/lucascoacci/dev/personal/PersonalMac/.build/arm64-apple-macosx/release/PersonalMac.product/Objects.LinkFileList"]
+    outputs: ["/Users/lucascoacci/dev/personal/PersonalMac/.build/arm64-apple-macosx/release/PersonalMac"]
+    description: "Linking ./.build/arm64-apple-macosx/release/PersonalMac"
+    args: ["/Library/Developer/CommandLineTools/usr/bin/swiftc","-L","/Users/lucascoacci/dev/personal/PersonalMac/.build/arm64-apple-macosx/release","-o","/Users/lucascoacci/dev/personal/PersonalMac/.build/arm64-apple-macosx/release/PersonalMac","-module-name","PersonalMac","-Xlinker","-no_warn_duplicate_libraries","-emit-executable","-Xlinker","-dead_strip","-Xlinker","-alias","-Xlinker","_PersonalMac_main","-Xlinker","_main","-Xlinker","-rpath","-Xlinker","@loader_path","@/Users/lucascoacci/dev/personal/PersonalMac/.build/arm64-apple-macosx/release/PersonalMac.product/Objects.LinkFileList","-Xlinker","-rpath","-Xlinker","/Library/Developer/CommandLineTools/usr/lib/swift-6.2/macosx","-target","arm64-apple-macosx14.0","-I","/Library/Developer/CommandLineTools/Library/Developer/Frameworks","-L","/Library/Developer/CommandLineTools/Library/Developer/Frameworks","-plugin-path","/Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/testing","-sdk","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-g"]
+
+  "C.PersonalMac-arm64-apple-macosx26.0-release.module":
+    tool: shell
+    inputs: ["/Users/lucascoacci/dev/personal/PersonalMac/PersonalMac/Models/ChatMessage.swift","/Users/lucascoacci/dev/personal/PersonalMac/PersonalMac/PersonalMacApp.swift","/Users/lucascoacci/dev/personal/PersonalMac/PersonalMac/Services/GlmService.swift","/Users/lucascoacci/dev/personal/PersonalMac/PersonalMac/Services/SettingsService.swift","/Users/lucascoacci/dev/personal/PersonalMac/PersonalMac/Views/ChatView.swift","/Users/lucascoacci/dev/personal/PersonalMac/PersonalMac/Views/MainView.swift","/Users/lucascoacci/dev/personal/PersonalMac/PersonalMac/Views/SettingsView.swift","/Users/lucascoacci/dev/personal/PersonalMac/.build/arm64-apple-macosx/release/swift-version--1AB21518FC5DEDBE.txt","/Users/lucascoacci/dev/personal/PersonalMac/.build/arm64-apple-macosx/release/PersonalMac.build/sources"]
+    outputs: ["/Users/lucascoacci/dev/personal/PersonalMac/.build/arm64-apple-macosx/release/PersonalMac.build/ChatMessage.swift.o","/Users/lucascoacci/dev/personal/PersonalMac/.build/arm64-apple-macosx/release/PersonalMac.build/PersonalMacApp.swift.o","/Users/lucascoacci/dev/personal/PersonalMac/.build/arm64-apple-macosx/release/PersonalMac.build/GlmService.swift.o","/Users/lucascoacci/dev/personal/PersonalMac/.build/arm64-apple-macosx/release/PersonalMac.build/SettingsService.swift.o","/Users/lucascoacci/dev/personal/PersonalMac/.build/arm64-apple-macosx/release/PersonalMac.build/ChatView.swift.o","/Users/lucascoacci/dev/personal/PersonalMac/.build/arm64-apple-macosx/release/PersonalMac.build/MainView.swift.o","/Users/lucascoacci/dev/personal/PersonalMac/.build/arm64-apple-macosx/release/PersonalMac.build/SettingsView.swift.o","/Users/lucascoacci/dev/personal/PersonalMac/.build/arm64-apple-macosx/release/Modules/PersonalMac.swiftmodule"]
+    description: "Compiling Swift Module 'PersonalMac' (7 sources)"
+    args: ["/Library/Developer/CommandLineTools/usr/bin/swiftc","-module-name","PersonalMac","-emit-dependencies","-emit-module","-emit-module-path","/Users/lucascoacci/dev/personal/PersonalMac/.build/arm64-apple-macosx/release/Modules/PersonalMac.swiftmodule","-output-file-map","/Users/lucascoacci/dev/personal/PersonalMac/.build/arm64-apple-macosx/release/PersonalMac.build/output-file-map.json","-whole-module-optimization","-num-threads","10","-c","@/Users/lucascoacci/dev/personal/PersonalMac/.build/arm64-apple-macosx/release/PersonalMac.build/sources","-I","/Users/lucascoacci/dev/personal/PersonalMac/.build/arm64-apple-macosx/release/Modules","-target","arm64-apple-macosx14.0","-whole-module-optimization","-num-threads","10","-serialize-diagnostics","-O","-j10","-DSWIFT_PACKAGE","-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE","-module-cache-path","/Users/lucascoacci/dev/personal/PersonalMac/.build/arm64-apple-macosx/release/ModuleCache","-parseable-output","-Xfrontend","-entry-point-function-name","-Xfrontend","PersonalMac_main","-color-diagnostics","-swift-version","6","-I","/Library/Developer/CommandLineTools/Library/Developer/Frameworks","-L","/Library/Developer/CommandLineTools/Library/Developer/Frameworks","-plugin-path","/Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/testing","-sdk","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-g","-Xcc","-isysroot","-Xcc","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-Xcc","-fPIC","-Xcc","-g","-package-name","personalmac"]
+
+  "PackageStructure":
+    tool: package-structure-tool
+    inputs: ["/Users/lucascoacci/dev/personal/PersonalMac/PersonalMac/","/Users/lucascoacci/dev/personal/PersonalMac/Package.swift","/Users/lucascoacci/dev/personal/PersonalMac/Package.resolved"]
+    outputs: ["<PackageStructure>"]
+    description: "Planning build"
+    allow-missing-inputs: true
+

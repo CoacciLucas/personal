@@ -16,7 +16,16 @@
       "Bash(git submodule:*)",
       "Bash(git rm:*)",
       "Bash(git add:*)",
-      "Bash(git config:*)"
+      "Bash(git config:*)",
+      "Bash(xcodebuild -project PersonalMac.xcodeproj -scheme PersonalMac -configuration Debug build)",
+      "Bash(swift --version)",
+      "Bash(xxd /Users/lucascoacci/dev/personal/PersonalMac/PersonalMac.xcodeproj/project.pbxproj)",
+      "Bash(sed -i '' '158a\\\\t\\\\t\\\\t\\\\tA10008 /* HotkeyManager.swift in Sources */,:*)",
+      "Bash(sed -n '157,161p' /Users/lucascoacci/dev/personal/PersonalMac/PersonalMac.xcodeproj/project.pbxproj)",
+      "Bash(sed -i '' '159s/^ttttA/\\\\t\\\\t\\\\t\\\\tA/' /Users/lucascoacci/dev/personal/PersonalMac/PersonalMac.xcodeproj/project.pbxproj)",
+      "Bash(sed -n '158,160p' /Users/lucascoacci/dev/personal/PersonalMac/PersonalMac.xcodeproj/project.pbxproj)",
+      "Bash(xcode-select:*)",
+      "Bash(swift -typecheck /Users/lucascoacci/dev/personal/PersonalMac/PersonalMac/Services/HotkeyManager.swift)"
     ]
   }
 }

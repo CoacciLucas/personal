@@ -1,0 +1,25 @@
+{
+    "configurations": [
+        
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:PersonalMac}",
+            "name": "Debug PersonalMac",
+            "target": "PersonalMac",
+            "configuration": "debug",
+            "preLaunchTask": "swift: Build Debug PersonalMac"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:PersonalMac}",
+            "name": "Release PersonalMac",
+            "target": "PersonalMac",
+            "configuration": "release",
+            "preLaunchTask": "swift: Build Release PersonalMac"
+        }
+    ]
+}
