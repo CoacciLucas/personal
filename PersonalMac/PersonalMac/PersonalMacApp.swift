@@ -1,12 +1,24 @@
 import SwiftUI
+import ApplicationServices
+
+@MainActor
+class AppServices: ObservableObject {
+    let glmService = GlmService()
+    let settingsService = SettingsService()
+    let hotkeyManager = HotkeyManager()
+
+    lazy var chatState: ChatState = ChatState(glmService: glmService)
+    lazy var panelManager: FloatingPanelManager = FloatingPanelManager(
+        chatState: chatState,
+        settingsService: settingsService,
+        glmService: glmService
+    )
+}
 
 @main
 struct PersonalMacApp: App {
+    @StateObject private var services = AppServices()
     @State private var currentPage = Page.main
-    @State private var pendingScreenshot: String?
-    private let glmService = GlmService()
-    private let settingsService = SettingsService()
-    private let hotkeyManager = HotkeyManager()
 
     var body: some Scene {
         WindowGroup {
@@ -16,15 +28,14 @@ struct PersonalMacApp: App {
                     MainView(onStartChat: { currentPage = .settings })
                 case .settings:
                     SettingsView(
-                        glmService: glmService,
-                        settingsService: settingsService,
-                        onGoToChat: { currentPage = .chat }
+                        glmService: services.glmService,
+                        settingsService: services.settingsService,
+                        onGoToChat: { activateFloatingMode() }
                     )
                 case .chat:
                     ChatView(
-                        glmService: glmService,
-                        onBack: { currentPage = .settings },
-                        pendingScreenshot: $pendingScreenshot
+                        chatState: services.chatState,
+                        onBack: { currentPage = .settings }
                     )
                 }
             }
@@ -33,18 +44,26 @@ struct PersonalMacApp: App {
                 window?.sharingType = .none
             })
             .task {
-                hotkeyManager.start()
-            }
-            .onReceive(NotificationCenter.default.publisher(for: .screenshotCaptured)) { notification in
-                if let base64 = notification.object as? String {
-                    pendingScreenshot = base64
-                    currentPage = .chat
+                services.hotkeyManager.start()
+                if let savedKey = await services.settingsService.getApiKey() {
+                    await services.glmService.setApiKey(savedKey)
+                    activateFloatingMode()
                 }
             }
         }
         .windowStyle(.titleBar)
         .windowResizability(.contentSize)
         .defaultSize(width: 600, height: 500)
+    }
+
+    private func activateFloatingMode() {
+        currentPage = .chat
+        services.panelManager.showToolbar()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            if let mainWindow = NSApp.windows.first(where: { $0.isVisible && !($0 is NSPanel) }) {
+                mainWindow.miniaturize(nil)
+            }
+        }
     }
 }
 

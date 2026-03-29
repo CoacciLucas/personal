@@ -14,7 +14,12 @@
 		A10005 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10005; };
 		A10006 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10006; };
 		A10007 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10007; };
-			A10008 /* HotkeyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10008; };
+		A10008 /* HotkeyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10008; };
+		A10009 /* ChatState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10009; };
+		A10010 /* MarkdownContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10010; };
+		A10011 /* FloatingToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10011; };
+		A10012 /* FloatingChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10012; };
+		A10013 /* FloatingPanelManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10013; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,7 +31,12 @@
 		B10005 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		B10006 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		B10007 /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
-			B10008 /* HotkeyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotkeyManager.swift; sourceTree = "<group>"; };
+		B10008 /* HotkeyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotkeyManager.swift; sourceTree = "<group>"; };
+		B10009 /* ChatState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatState.swift; sourceTree = "<group>"; };
+		B10010 /* MarkdownContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownContentView.swift; sourceTree = "<group>"; };
+		B10011 /* FloatingToolbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingToolbarView.swift; sourceTree = "<group>"; };
+		B10012 /* FloatingChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingChatView.swift; sourceTree = "<group>"; };
+		B10013 /* FloatingPanelManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingPanelManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +73,7 @@
 			isa = PBXGroup;
 			children = (
 				B10002 /* ChatMessage.swift */,
+				B10009 /* ChatState.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -73,6 +84,7 @@
 				B10003 /* GlmService.swift */,
 				B10004 /* SettingsService.swift */,
 				B10008 /* HotkeyManager.swift */,
+				B10013 /* FloatingPanelManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -91,6 +103,9 @@
 				B10005 /* MainView.swift */,
 				B10006 /* SettingsView.swift */,
 				B10007 /* ChatView.swift */,
+				B10010 /* MarkdownContentView.swift */,
+				B10011 /* FloatingToolbarView.swift */,
+				B10012 /* FloatingChatView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -160,6 +175,11 @@
 				A10005 /* MainView.swift in Sources */,
 				A10006 /* SettingsView.swift in Sources */,
 				A10007 /* ChatView.swift in Sources */,
+				A10009 /* ChatState.swift in Sources */,
+				A10010 /* MarkdownContentView.swift in Sources */,
+				A10011 /* FloatingToolbarView.swift in Sources */,
+				A10012 /* FloatingChatView.swift in Sources */,
+				A10013 /* FloatingPanelManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

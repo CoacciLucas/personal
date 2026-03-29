@@ -1,36 +1,11 @@
 import SwiftUI
 
-struct ChatView: View {
+struct FloatingChatView: View {
     @ObservedObject var chatState: ChatState
     @State private var inputText = ""
-    var onBack: () -> Void
 
     var body: some View {
         VStack(spacing: 0) {
-            // Header
-            HStack {
-                Button(action: onBack) {
-                    Image(systemName: "chevron.left")
-                        .font(.system(size: 14))
-                }
-                .buttonStyle(.plain)
-                .padding(.trailing, 10)
-
-                Text("Chat GLM")
-                    .font(.system(size: 20, weight: .bold))
-                    .foregroundStyle(.purple)
-
-                Spacer()
-
-                Text("^E capturar tela")
-                    .font(.system(size: 11))
-                    .foregroundStyle(.secondary)
-            }
-            .padding(.bottom, 15)
-
-            Divider()
-
-            // Messages
             ScrollViewReader { proxy in
                 ScrollView {
                     LazyVStack(alignment: .leading, spacing: 5) {
@@ -39,7 +14,8 @@ struct ChatView: View {
                                 if msg.isUser { Spacer() }
                                 VStack(alignment: msg.isUser ? .trailing : .leading, spacing: 4) {
                                     if let imageBase64 = msg.imageBase64,
-                                       let nsImage = base64ToNSImage(imageBase64) {
+                                       let data = Data(base64Encoded: imageBase64),
+                                       let nsImage = NSImage(data: data) {
                                         Image(nsImage: nsImage)
                                             .resizable()
                                             .aspectRatio(contentMode: .fit)
@@ -59,13 +35,13 @@ struct ChatView: View {
                                             .cornerRadius(8)
                                     }
                                 }
-                                .frame(maxWidth: 400, alignment: msg.isUser ? .trailing : .leading)
+                                .frame(maxWidth: 350, alignment: msg.isUser ? .trailing : .leading)
                                 if !msg.isUser { Spacer() }
                             }
                             .id(msg.id)
                         }
                     }
-                    .padding(.vertical, 10)
+                    .padding(10)
                 }
                 .onChange(of: chatState.messages.count) {
                     if let last = chatState.messages.last {
@@ -75,37 +51,26 @@ struct ChatView: View {
                     }
                 }
             }
-            .padding(.vertical, 10)
 
             Divider()
 
-            // Input
             HStack {
-                TextField("Digite sua mensagem...", text: $inputText)
+                TextField("Mensagem...", text: $inputText)
                     .textFieldStyle(.roundedBorder)
-                    .onSubmit { sendMessage() }
+                    .onSubmit { send() }
 
-                Button("Enviar") {
-                    sendMessage()
-                }
-                .buttonStyle(.borderedProminent)
-                .tint(.purple)
-                .disabled(chatState.isLoading || inputText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
-                .padding(.leading, 10)
+                Button("Enviar") { send() }
+                    .buttonStyle(.borderedProminent)
+                    .tint(.purple)
+                    .disabled(chatState.isLoading || inputText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
             }
-            .padding(.top, 15)
+            .padding(10)
         }
-        .padding(20)
     }
 
-    private func sendMessage() {
+    private func send() {
         let text = inputText
         inputText = ""
         chatState.sendMessage(text)
-    }
-
-    private func base64ToNSImage(_ base64: String) -> NSImage? {
-        guard let data = Data(base64Encoded: base64) else { return nil }
-        return NSImage(data: data)
     }
 }

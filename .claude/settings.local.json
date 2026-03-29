@@ -25,7 +25,9 @@
       "Bash(sed -i '' '159s/^ttttA/\\\\t\\\\t\\\\t\\\\tA/' /Users/lucascoacci/dev/personal/PersonalMac/PersonalMac.xcodeproj/project.pbxproj)",
       "Bash(sed -n '158,160p' /Users/lucascoacci/dev/personal/PersonalMac/PersonalMac.xcodeproj/project.pbxproj)",
       "Bash(xcode-select:*)",
-      "Bash(swift -typecheck /Users/lucascoacci/dev/personal/PersonalMac/PersonalMac/Services/HotkeyManager.swift)"
+      "Bash(swift -typecheck /Users/lucascoacci/dev/personal/PersonalMac/PersonalMac/Services/HotkeyManager.swift)",
+      "Bash(xcodebuild -scheme PersonalMac -configuration Debug build)",
+      "Bash(swift build:*)"
     ]
   }
 }
