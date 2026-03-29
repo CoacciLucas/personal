@@ -20,6 +20,8 @@
 		A10011 /* FloatingToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10011; };
 		A10012 /* FloatingChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10012; };
 		A10013 /* FloatingPanelManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10013; };
+		A10014 /* AssistantService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10014; };
+		A10015 /* SpeechService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10015; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +39,8 @@
 		B10011 /* FloatingToolbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingToolbarView.swift; sourceTree = "<group>"; };
 		B10012 /* FloatingChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingChatView.swift; sourceTree = "<group>"; };
 		B10013 /* FloatingPanelManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingPanelManager.swift; sourceTree = "<group>"; };
+		B10014 /* AssistantService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistantService.swift; sourceTree = "<group>"; };
+		B10015 /* SpeechService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +89,8 @@
 				B10004 /* SettingsService.swift */,
 				B10008 /* HotkeyManager.swift */,
 				B10013 /* FloatingPanelManager.swift */,
+				B10014 /* AssistantService.swift */,
+				B10015 /* SpeechService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -180,6 +186,8 @@
 				A10011 /* FloatingToolbarView.swift in Sources */,
 				A10012 /* FloatingChatView.swift in Sources */,
 				A10013 /* FloatingPanelManager.swift in Sources */,
+				A10014 /* AssistantService.swift in Sources */,
+				A10015 /* SpeechService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -248,6 +256,8 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "GLM Chat";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Necessario para capturar sua voz durante entrevistas";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "Necessario para transcrever conversas em tempo real";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -273,6 +283,8 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "GLM Chat";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Necessario para capturar sua voz durante entrevistas";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "Necessario para transcrever conversas em tempo real";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",

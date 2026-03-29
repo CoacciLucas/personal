@@ -10,7 +10,7 @@ actor GlmService {
     func setApiKey(_ key: String) { apiKey = key }
     func getApiKey() -> String? { apiKey }
 
-    func sendMessage(messages: [ChatMessage]) async throws -> String {
+    func sendMessage(messages: [ChatMessage], systemPrompt: String? = nil) async throws -> String {
         guard let apiKey, !apiKey.isEmpty else {
             throw GlmError.apiKeyNotConfigured
         }
@@ -18,7 +18,16 @@ actor GlmService {
         let hasImage = messages.contains { $0.imageBase64 != nil }
         let model = hasImage ? visionModel : textModel
 
-        let encodedMessages = messages.map { msg -> [String: Any] in
+        var encodedMessages: [[String: Any]] = []
+
+        if let systemPrompt, !systemPrompt.isEmpty {
+            encodedMessages.append(["role": "system", "content": systemPrompt])
+            print("[GlmService] System prompt active (\(systemPrompt.prefix(60))...)")
+        } else {
+            print("[GlmService] No system prompt")
+        }
+
+        encodedMessages.append(contentsOf: messages.map { msg -> [String: Any] in
             if let imageBase64 = msg.imageBase64 {
                 return [
                     "role": msg.role,
@@ -29,7 +38,7 @@ actor GlmService {
                 ]
             }
             return ["role": msg.role, "content": msg.content]
-        }
+        })
 
         let body: [String: Any] = [
             "model": model,

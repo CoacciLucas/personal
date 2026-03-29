@@ -18,6 +18,7 @@ class FloatingPanelManager: ObservableObject {
     private let glmService: GlmService
 
     private var screenshotObserver: Any?
+    private var speechObserver: Any?
 
     init(chatState: ChatState, settingsService: SettingsService, glmService: GlmService) {
         self.chatState = chatState
@@ -35,13 +36,23 @@ class FloatingPanelManager: ObservableObject {
                 }
             }
         }
+
+        speechObserver = NotificationCenter.default.addObserver(
+            forName: .toggleSpeechListening,
+            object: nil,
+            queue: .main
+        ) { [weak self] _ in
+            Task { @MainActor in
+                self?.handleSpeechToggle()
+            }
+        }
     }
 
     func showToolbar() {
         guard toolbarPanel == nil else { return }
 
         let panel = NSPanel(
-            contentRect: NSRect(x: 0, y: 0, width: 52, height: 160),
+            contentRect: NSRect(x: 0, y: 0, width: 52, height: 210),
             styleMask: [.nonactivatingPanel, .borderless],
             backing: .buffered,
             defer: false
@@ -56,11 +67,15 @@ class FloatingPanelManager: ObservableObject {
         panel.hasShadow = false
 
         let toolbarView = FloatingToolbarView(
+            chatState: chatState,
             onCapture: { [weak self] in
                 self?.triggerCapture()
             },
             onToggleChat: { [weak self] in
                 self?.toggleChat()
+            },
+            onToggleSpeech: { [weak self] in
+                self?.handleSpeechToggle()
             },
             onSettings: { [weak self] in
                 self?.showApiKeyAlert()
@@ -90,6 +105,13 @@ class FloatingPanelManager: ObservableObject {
 
     func handleScreenshot(_ base64: String) {
         chatState.processScreenshot(base64)
+        if !isChatVisible {
+            showChatPanel()
+        }
+    }
+
+    func handleSpeechToggle() {
+        chatState.toggleListening()
         if !isChatVisible {
             showChatPanel()
         }

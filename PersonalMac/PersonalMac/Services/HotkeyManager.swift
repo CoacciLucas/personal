@@ -6,6 +6,7 @@ import ScreenCaptureKit
 extension Notification.Name {
     static let screenshotCaptured = Notification.Name("screenshotCaptured")
     static let triggerScreenCapture = Notification.Name("triggerScreenCapture")
+    static let toggleSpeechListening = Notification.Name("toggleSpeechListening")
 }
 
 class HotkeyManager {
@@ -89,12 +90,23 @@ class HotkeyManager {
 
     @discardableResult
     private func handleKeyEvent(_ event: NSEvent) -> Bool {
-        guard event.modifierFlags.contains(.control),
-              event.charactersIgnoringModifiers?.lowercased() == "e" else {
-            return false
+        let chars = event.charactersIgnoringModifiers?.lowercased() ?? ""
+
+        // Ctrl+E → Screenshot
+        if event.modifierFlags.contains(.control), chars == "e" {
+            captureAndNotify()
+            return true
         }
-        captureAndNotify()
-        return true
+
+        // Cmd+D → Toggle speech listening
+        if event.modifierFlags.contains(.command), chars == "d" {
+            DispatchQueue.main.async {
+                NotificationCenter.default.post(name: .toggleSpeechListening, object: nil)
+            }
+            return true
+        }
+
+        return false
     }
 
     // MARK: - Screen Capture
