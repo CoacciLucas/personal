@@ -27,7 +27,9 @@
       "Bash(xcode-select:*)",
       "Bash(swift -typecheck /Users/lucascoacci/dev/personal/PersonalMac/PersonalMac/Services/HotkeyManager.swift)",
       "Bash(xcodebuild -scheme PersonalMac -configuration Debug build)",
-      "Bash(swift build:*)"
+      "Bash(swift build:*)",
+      "Bash(xcodebuild -project PersonalMac.xcodeproj -scheme PersonalMac build)",
+      "Bash(find /Users/lucascoacci/dev/personal/PersonalMac -maxdepth 2 -type f \\\\\\(-name Package.swift -o -name README.md -o -name CLAUDE.md -o -name .cursorrules -o -name *.md \\\\\\))"
     ]
   }
 }

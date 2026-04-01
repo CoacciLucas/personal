@@ -1,14 +1,31 @@
 import Foundation
 
+struct GlmModel: Identifiable, Hashable {
+    let id: String
+    let name: String
+    let supportsVision: Bool
+}
+
 actor GlmService {
     private let apiUrl = URL(string: "https://api.z.ai/api/coding/paas/v4/chat/completions")!
-    private let textModel = "glm-5"
-    private let visionModel = "glm-4.6v-flash"
+
+    private(set) var availableModels: [GlmModel] = []
 
     private var apiKey: String?
+    private var selectedModelId: String = "glm-5"
+
+    func setAvailableModels(_ models: [GlmModel]) {
+        availableModels = models
+        if !models.isEmpty, !models.contains(where: { $0.id == selectedModelId }) {
+            selectedModelId = models[0].id
+        }
+    }
 
     func setApiKey(_ key: String) { apiKey = key }
     func getApiKey() -> String? { apiKey }
+
+    func setModel(_ modelId: String) { selectedModelId = modelId }
+    func getModel() -> String { selectedModelId }
 
     func sendMessage(messages: [ChatMessage], systemPrompt: String? = nil) async throws -> String {
         guard let apiKey, !apiKey.isEmpty else {
@@ -16,15 +33,21 @@ actor GlmService {
         }
 
         let hasImage = messages.contains { $0.imageBase64 != nil }
-        let model = hasImage ? visionModel : textModel
+        let selectedModel = availableModels.first { $0.id == selectedModelId }
+
+        // If message has image but selected model doesn't support vision, use a vision model
+        let model: String
+        if hasImage, selectedModel?.supportsVision != true,
+           let visionModel = availableModels.first(where: { $0.supportsVision }) {
+            model = visionModel.id
+        } else {
+            model = selectedModelId
+        }
 
         var encodedMessages: [[String: Any]] = []
 
         if let systemPrompt, !systemPrompt.isEmpty {
             encodedMessages.append(["role": "system", "content": systemPrompt])
-            print("[GlmService] System prompt active (\(systemPrompt.prefix(60))...)")
-        } else {
-            print("[GlmService] No system prompt")
         }
 
         encodedMessages.append(contentsOf: messages.map { msg -> [String: Any] in
@@ -44,6 +67,8 @@ actor GlmService {
             "model": model,
             "messages": encodedMessages
         ]
+
+        print("[GlmService] Using model: \(model)")
 
         var request = URLRequest(url: apiUrl)
         request.httpMethod = "POST"

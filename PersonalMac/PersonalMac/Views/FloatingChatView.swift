@@ -61,6 +61,51 @@ struct FloatingChatView: View {
                 }
                 .buttonStyle(.plain)
 
+                // Model selector
+                Menu {
+                    ForEach(chatState.availableModels) { model in
+                        Button {
+                            chatState.selectModel(model)
+                        } label: {
+                            HStack {
+                                Text(model.name)
+                                if model.supportsVision {
+                                    Text("(vision)")
+                                        .foregroundStyle(.secondary)
+                                }
+                                if chatState.selectedModel == model {
+                                    Image(systemName: "checkmark")
+                                }
+                            }
+                        }
+                    }
+
+                    Divider()
+
+                    Button {
+                        chatState.reloadModels()
+                    } label: {
+                        HStack {
+                            Image(systemName: "arrow.clockwise")
+                            Text("Recarregar")
+                        }
+                    }
+                } label: {
+                    HStack(spacing: 4) {
+                        Image(systemName: "cpu")
+                            .font(.system(size: 12))
+                        Text(chatState.selectedModel?.name ?? "Modelo")
+                            .font(.system(size: 12, weight: .medium))
+                        Image(systemName: "chevron.down")
+                            .font(.system(size: 8))
+                    }
+                    .padding(.horizontal, 8)
+                    .padding(.vertical, 5)
+                    .background(Color.blue.opacity(0.1))
+                    .cornerRadius(6)
+                }
+                .buttonStyle(.plain)
+
                 Spacer()
 
                 Button {

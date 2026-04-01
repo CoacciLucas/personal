@@ -22,6 +22,7 @@
 		A10013 /* FloatingPanelManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10013; };
 		A10014 /* AssistantService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10014; };
 		A10015 /* SpeechService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10015; };
+		A10016 /* ModelService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10016; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +42,7 @@
 		B10013 /* FloatingPanelManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingPanelManager.swift; sourceTree = "<group>"; };
 		B10014 /* AssistantService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistantService.swift; sourceTree = "<group>"; };
 		B10015 /* SpeechService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechService.swift; sourceTree = "<group>"; };
+		B10016 /* ModelService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +93,7 @@
 				B10013 /* FloatingPanelManager.swift */,
 				B10014 /* AssistantService.swift */,
 				B10015 /* SpeechService.swift */,
+				B10016 /* ModelService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -188,6 +191,7 @@
 				A10013 /* FloatingPanelManager.swift in Sources */,
 				A10014 /* AssistantService.swift in Sources */,
 				A10015 /* SpeechService.swift in Sources */,
+				A10016 /* ModelService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,6 +7,8 @@ class ChatState: ObservableObject {
     @Published var isLoading = false
     @Published var selectedAssistant: Assistant?
     @Published var availableAssistants: [Assistant] = []
+    @Published var availableModels: [GlmModel] = []
+    @Published var selectedModel: GlmModel?
 
     // Speech
     @Published var isListening = false
@@ -16,15 +18,39 @@ class ChatState: ObservableObject {
     let glmService: GlmService
     let speechService = SpeechService()
     private let assistantService = AssistantService()
+    private let modelService = ModelService()
 
     init(glmService: GlmService) {
         self.glmService = glmService
         self.availableAssistants = assistantService.loadAssistants()
+        loadModels()
         setupSpeechCallbacks()
     }
 
     var systemPrompt: String? {
         selectedAssistant?.prompt
+    }
+
+    // MARK: - Model
+
+    private func loadModels() {
+        let models = modelService.loadModels()
+        availableModels = models
+        selectedModel = models.first
+        Task {
+            await glmService.setAvailableModels(models)
+        }
+    }
+
+    func reloadModels() {
+        loadModels()
+    }
+
+    func selectModel(_ model: GlmModel) {
+        selectedModel = model
+        Task {
+            await glmService.setModel(model.id)
+        }
     }
 
     // MARK: - Assistant
