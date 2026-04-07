@@ -1,0 +1,28 @@
+appId: com.personal.electron
+productName: PersonalElectron
+directories:
+  buildResources: assets
+files:
+  - '!**/.vscode/*'
+  - '!src/*'
+  - '!electron/*'
+  - '!{.eslintignore,.eslintrc.cjs,.prettierignore,.prettierrc.yaml,CLAUDE.md,README.md}'
+  - '!{tsconfig.json,tsconfig.node.json,tsconfig.web.json}'
+asarUnpack:
+  - resources/**
+win:
+  target:
+    - nsis
+  icon: assets/icon.png
+mac:
+  target:
+    - dmg
+    - zip
+  icon: assets/icon.png
+  extendInfo:
+    NSMicrophoneUsageDescription: "PersonalElectron precisa de acesso ao microfone para reconhecimento de voz."
+    NSSpeechRecognitionUsageDescription: "PersonalElectron precisa de reconhecimento de voz para transcrever áudio."
+    NSScreenCaptureUsageDescription: "PersonalElectron precisa capturar a tela para screenshots e áudio do sistema."
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true

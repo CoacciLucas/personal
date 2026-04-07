@@ -88,3 +88,8 @@ Backup*/
 
 # Certificates and secrets
 *.pfx
+
+# Node/Electron
+node_modules/
+out/
+dist/

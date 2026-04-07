@@ -1,0 +1,7 @@
+{
+  "files": ["src/env.d.ts"],
+  "references": [
+    { "path": "./tsconfig.node.json" },
+    { "path": "./tsconfig.web.json" }
+  ]
+}
