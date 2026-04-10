@@ -173,9 +173,7 @@ struct FloatingChatView: View {
         HStack {
             if msg.isUser { Spacer() }
             VStack(alignment: msg.isUser ? .trailing : .leading, spacing: 4) {
-                if let imageBase64 = msg.imageBase64,
-                   let data = Data(base64Encoded: imageBase64),
-                   let nsImage = NSImage(data: data) {
+                if let nsImage = msg.image {
                     Image(nsImage: nsImage)
                         .resizable()
                         .aspectRatio(contentMode: .fit)

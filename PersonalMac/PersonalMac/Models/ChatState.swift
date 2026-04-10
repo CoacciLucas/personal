@@ -208,4 +208,5 @@ class ChatState: ObservableObject {
         liveUserTranscript = ""
         liveInterviewerTranscript = ""
     }
+
 }

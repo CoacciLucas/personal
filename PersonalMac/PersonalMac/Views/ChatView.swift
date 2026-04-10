@@ -38,8 +38,7 @@ struct ChatView: View {
                             HStack {
                                 if msg.isUser { Spacer() }
                                 VStack(alignment: msg.isUser ? .trailing : .leading, spacing: 4) {
-                                    if let imageBase64 = msg.imageBase64,
-                                       let nsImage = base64ToNSImage(imageBase64) {
+                                    if let nsImage = msg.image {
                                         Image(nsImage: nsImage)
                                             .resizable()
                                             .aspectRatio(contentMode: .fit)
@@ -104,8 +103,4 @@ struct ChatView: View {
         chatState.sendMessage(text)
     }
 
-    private func base64ToNSImage(_ base64: String) -> NSImage? {
-        guard let data = Data(base64Encoded: base64) else { return nil }
-        return NSImage(data: data)
-    }
 }
